@@ -19,10 +19,11 @@ for files in glob(DATASET_DIR+"*"):
     for f in file:
         if "positive" in filename :
             id = f[0:6]
-            print(id +" "+f[11:14])
+            
             positive_pids.append(id);
             if(positive_pids[len(positive_pids)-2] == id):
-                temp_list.append(f[11:14].strip())
+                #print(id +" "+f[11:14])
+                temp_list.append(f[11:14])
             pos_dict[id].append(temp_list)
             temp_list = []
         else:
