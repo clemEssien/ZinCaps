@@ -1,3 +1,5 @@
+import re
+
 def isEmpty(list):
     if not list:
         return True
