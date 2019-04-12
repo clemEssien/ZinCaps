@@ -1,3 +1,4 @@
+from tqdm import tqdm
 import os
 from glob import glob
 from collections import defaultdict
@@ -18,7 +19,7 @@ def insert(string, array,xter):
   new_string = "";
   i = 1;
   for i in range(len(array)):
-    sequence.append(array[i]+1) #seems the regphos position annotation counts from zero
+    sequence.append(array[i])
     new_string += string[sequence[i]:sequence[i+1]]+xter
   new_string += string[sequence[-1]:]+"\n"
   return new_string
@@ -38,16 +39,15 @@ for files in glob(DATASET_DIR+"*"):
     for f in file:
         if "positive" in filename :
             id = f[0:6]
-            #print(id +" "+f[11:14])
             positive_pids.append(id);
-            if(positive_pids[len(positive_pids)-1] == id):
+            if positive_pids[len(positive_pids)-1] == id:
                 temp_pos_list.append(f[11:14].strip())
             pos_dict[id].append(temp_pos_list)
             temp_pos_list = []
         else:
             id = f[0:6]
             negative_pids.append(id);
-            if(negative_pids[len(negative_pids)-1] == id):
+            if negative_pids[len(negative_pids)-1] == id:
                 temp_neg_list.append(f[11:14].strip())
             neg_dict[id].append(temp_neg_list)
             temp_neg_list = []
@@ -64,9 +64,9 @@ with open(RES_DIR+"pdb_seqres.txt", "r") as file:
    data = file.read()
    seq_list = data.split(">")
 
-   for pdb_id in positive_pids:
-       for seq in seq_list:
-           if(pdb_id.strip().lower() == seq[0:6].strip().lower()):
+   for pdb_id in tqdm(positive_pids):
+       for seq in tqdm(seq_list):
+           if pdb_id.strip().lower() == seq[0:6].strip().lower():
                with open(RES_DIR+"pos_sequence.fasta", "a") as fasta_file:
                     fasta_file.write(capitalise(seq))
 
@@ -74,17 +74,14 @@ with open(RES_DIR+"pdb_seqres.txt", "r") as file:
 with open(RES_DIR + "pos_sequence.fasta", "r") as file:
     data = file.read()
     seq_list = data.split(">")
-    # print(seq_list[0])
-    # print(seq_list[1])
-    # print(seq_list[2])
-    # print("-------------------")
-    for i in range(len(seq_list)):
+
+    for i in tqdm(range(len(seq_list))):
         pos_seq_list = seq_list[i].strip().split("\n")
         if len(pos_seq_list) == 2:
             pdb_id = pos_seq_list[0][0:6].strip()
-            position_list = [int(x[0].split('+')[0]) for x in pos_dict[pdb_id]]  # in files positions start from 1
-            #print(arr)
-            #print(pos_seq_list[1])
+            #position_list = [int(x[0].split('+')[0]) for x in pos_dict[pdb_id]]  # in files positions start from 1
+            position_list = [int(x[0]) for x in pos_dict[pdb_id]]  # in files positions start from 1
+            position_list.sort()
             seq = insert(pos_seq_list[1].strip(),position_list,"#")
             print(pdb_id , position_list, seq)
             with open(RES_DIR + "pos_annotated_sequence.fasta", "a") as fasta_file:
