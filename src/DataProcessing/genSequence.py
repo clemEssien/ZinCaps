@@ -3,8 +3,6 @@ import shutil
 from glob import glob
 from collections import defaultdict
 import re
-import numpy as np
-from itertools import islice
 
 from tqdm import tqdm
 
