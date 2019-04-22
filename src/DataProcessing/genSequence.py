@@ -8,8 +8,7 @@ import textwrap
 
 DATASET_DIR = "../../data/dataset/"
 RES_DIR = "../../data/resource/"
-DSSP_DIR_OLD = "../../data/resource/dssp"
-DSSP_DIR_NEW = "../../data/resource/dssp_for_use"
+DSSP= "../../data/resource/dssp"
 positive_pids = []
 negative_pids = []
 temp_pos_list = []
@@ -58,7 +57,7 @@ def write_pos_annotations(pdb_id,seq,filename):
 
 
 def parse_dssp_file(file_id, pos_dict,filename):
-    with open(DSSP_DIR_NEW + "/" + file_id[0:4] + ".dssp", "r") as file:
+    with open(DSSP + "/" + file_id[0:4] + ".dssp", "r") as file:
         line_no = 0
         seq = ""
         for line in file:
