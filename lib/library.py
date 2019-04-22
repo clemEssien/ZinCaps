@@ -1,4 +1,5 @@
 import re
+import os
 
 def isEmpty(list):
     if not list:
@@ -26,3 +27,14 @@ def insert(string, array,xter):
     new_string += string[sequence[i]:sequence[i+1]]+xter
   new_string += string[sequence[-1]:]+"\n"
   return new_string
+
+def capitalise(str):
+    return ">" + str[0:6].upper() + str[6:len(str)]
+
+def fileList(folder_old):
+    files = []
+    for filename in os.listdir(folder_old):
+        filename = filename.split('.dssp')[0]
+        files.append(filename)
+    return files
+
