@@ -1,7 +1,6 @@
 # ActiveSitePrediction
 
-- Running on GPU 
-  This code was designed to run on GPU 
+This code was designed to run on GPU 
  
 Instructions
 1. Run /ZinCaps/ActiveSitePrediction/src/DataProcessing/genSequence.py
