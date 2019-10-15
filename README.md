@@ -4,7 +4,7 @@ This code was designed to run on GPU
  
 Instructions
 1. Run /ZinCaps/ActiveSitePrediction/src/DataProcessing/genSequence.py
-to generate annotated protein sequences and also to generate 10 fold cross validation.
+to generate annotated protein sequences and also to generate 5 fold cross validation.
 
 2. To train, run the following command
 
