@@ -18,7 +18,6 @@ def bootStrapping_allneg_continue_keras2(trainfile,valfile=None,srate=0.8,
   train_pos_s=train_pos.sample(train_pos.shape[0]); #shuffle train pos
   train_neg_s=train_neg.sample(train_neg.shape[0]); #shuffle train neg
   slength=int(train_pos.shape[0]*srate);
-  print("slength, shape")
   print(slength, train_pos.shape[0])
   nclass=int(train_neg.shape[0]/slength);
   if(valfile is not None): # use all data in valfile as val
@@ -28,25 +27,18 @@ def bootStrapping_allneg_continue_keras2(trainfile,valfile=None,srate=0.8,
      val_pos=pd.DataFrame(val_pos)
      val_neg=pd.DataFrame(val_neg)
      val_all=pd.concat([val_pos,val_neg])
-     valX1,valY1 = convertRawToXY(val_all.as_matrix(),codingMode = 0)
+     valX1,valY1 = convertRawToXY(val_all.as_matrix(),codingMode)
   else:     #selct 0.1 samples of training data as val
             a=int(train_pos.shape[0]*0.9);
             b=train_neg.shape[0]-int(train_pos.shape[0]*0.1);
-            print ("train pos="+str(train_pos.shape[0])+str('\n'))
-            print ("train neg="+str(train_neg.shape[0])+str('\n'))
-            print (" a="+str(a)+" b="+str(b)+str('\n'))
             train_pos_s=train_pos[0:a]
             train_neg_s=train_neg[0:b]
-            print ("train pos s="+str(train_pos_s.shape[0])+str('\n'))
-            print ("train neg s="+str(train_neg_s.shape[0])+str('\n'))
-            
+
             val_pos=train_pos[(a+1):];
-            print ("val_pos="+str(val_pos.shape[0])+str('\n'))
             val_neg=train_neg[b+1:];
-            print ("val_neg="+str(val_neg.shape[0])+str('\n'))
-            
+
             val_all=pd.concat([val_pos,val_neg])
-            valX1,valY1 = convertRawToXY(val_all.as_matrix(),codingMode = 0)
+            valX1,valY1 = convertRawToXY(val_all.as_matrix(),codingMode)
             slength=int(train_pos_s.shape[0]*srate); #update slength
             nclass=int(train_neg_s.shape[0]/slength);
   print("bootstrap val shape", valX1.shape, valY1.shape)          
@@ -60,7 +52,7 @@ def bootStrapping_allneg_continue_keras2(trainfile,valfile=None,srate=0.8,
     for t in range(nclass):
         train_neg_ss=train_neg_s[(slength*t):(slength*t+slength)];
         train_all=pd.concat([train_pos_ss,train_neg_ss])
-        trainX1,trainY1 = convertRawToXY(train_all.as_matrix(),codingMode = 0)
+        trainX1,trainY1 = convertRawToXY(train_all.as_matrix(),codingMode)
         if t==0:
             models,eval_model,manipulate_model,weight_c_model,fitHistory=Capsnet_main(trainX=trainX1,trainY=trainY1,valX=valX1,valY=valY1,nb_classes=nb_classes,nb_epoch=nb_epoch2,earlystop=earlystop,weights=inputweights,compiletimes=t,lr=0.001,batch_size=500,lam_recon=lam_recon,routings=3,class_weight=None,modeltype=model)
         else:

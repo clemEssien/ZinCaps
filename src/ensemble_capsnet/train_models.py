@@ -75,16 +75,14 @@ def main():
         valfrag=extractFragforTraining(valfile,window,'-',focus= residues)
     else:
         valfrag=None
-    
+
+
     for bt in range(nclass):
         checkpointoutput=checkpointweights+"_nclass"+str(bt)
-        models=bootStrapping_allneg_continue_keras2(trainfrag.as_matrix(),valfile=valfrag,
-                                                  srate=1,nb_epoch1=1,nb_epoch2=np_epoch2,earlystop=earlystop,maxneg=maxneg,
-                                                  outputweights=checkpointoutput,
-                                                  inputweights=inputweights,
-                                                  model=model,
-                                                  codingMode=codemode,
-                                                  nb_classes=nb_classes
+        models=bootStrapping_allneg_continue_keras2(trainfrag.as_matrix(),valfile=valfrag,srate=1,
+                                                    nb_epoch1=1,nb_epoch2=np_epoch2,earlystop=earlystop,
+                                                    maxneg=maxneg,model=model,codingMode=codemode,
+                                                    inputweights=inputweights,outputweights=checkpointoutput,nb_classes=nb_classes
                                                   )
         #models=bootStrapping_allneg_continue_keras2(trainfrag.as_matrix(),
         #                                            valfile=valfrag,
