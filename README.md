@@ -33,10 +33,7 @@ Change the default configuration file into:
 
 >If you want to use GPU, you also need to install [CUDA]( https://developer.nvidia.com/cuda-toolkit) and [cuDNN](https://developer.nvidia.com/cudnn); refer to their websites for instructions. 
 CPU is only suitable for prediction not training. 
-#### For custom training:
-```sh
-python train_models.py -input [custom training data in fasta format] -output-prefix [prefix of pre-trained model] -residue-types [custom specified residue types]
-```
+
 For details of other parameters, run:
 ```sh
 python train_models.py --help
@@ -49,7 +46,7 @@ python train_models.py -h
 ## Training
 To train a custom model, run the following command:
 
-python train_models.py -input [fasta file] -output-prefix [prefix of pre-trained model] -residue-types [candidate binding residues] - window 12
+``` python train_models.py -input [fasta file] -output-prefix [prefix of pre-trained model] -residue-types [candidate binding residues] - window 12 ```
 
 * fasta file: A file in fasta format, a sample is provided
 * residue-types: These refer to the candidate amino acid residues that bind to Zinc  
