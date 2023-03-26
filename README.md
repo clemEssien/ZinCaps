@@ -14,7 +14,7 @@ pip install numpy
 pip install scipy
 pip install h5py
 pip install -v keras==2.1.1
-pip install tensorflow (or GPU supported tensorflow, refer to https://www.tensorflow.org/install/ for instructions)
+pip install tensorflow==1.15 (or GPU supported tensorflow, refer to https://www.tensorflow.org/install/ for instructions)
 ```
  - This is the Tensorflow version, you must change the backend to TensorFlow.
 If you have run Keras at least once, you will find the Keras configuration file at:
