@@ -12,7 +12,7 @@ Sample fasta files are provided for both training and testing i.e.
 pip install pandas
 pip install numpy
 pip install scipy
-pip install h5py
+pip install h5py==2.10.0
 pip install -v keras==2.1.1
 pip install tensorflow==1.15 (or GPU supported tensorflow, refer to https://www.tensorflow.org/install/ for instructions)
 ```
